@@ -106,20 +106,20 @@ const router = createRouter({
 // })
 
 const canAccess = () => {
-  return newPromise(resolve => {
+  return new Promise(resolve => {
       const random = Math.random()*100
       if (random > 50) {
-        console.log("Autenticado - canAccess")
+        console.log(`Autenticado - canAccess. Valor: ${random}`)
         resolve(true)
       } else {
-        console.log(random, "Bloqueado por beoreEach Guard - canAccess");
+        console.log(`Bloqueado por beoreEach Guard - canAccess. Valor: ${random}  `);
         resolve(false)
       }
   })
 }
 
 router.beforeEach(async(to, from, next) => {
-  const authorized = await canAcces()
+  const authorized = await canAccess()
 
   authorized
     ? next()
