@@ -1652,7 +1652,7 @@
   optionalDependencies:
     prettier "^1.18.2 || ^2.0.0"
 
-"@vue/devtools-api@^6.5.0":
+"@vue/devtools-api@^6.0.0-beta.11", "@vue/devtools-api@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.5.0.tgz#98b99425edee70b4c992692628fa1ea2c1e57d07"
   integrity sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==
@@ -2150,6 +2150,11 @@ boolbase@^1.0.0:
   resolved "https://registry.npmmirror.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
+bootstrap@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.3.1.tgz#8ca07040ad15d7f75891d1504cf14c5dedfb1cfe"
+  integrity sha512-jzwza3Yagduci2x0rr9MeFSORjcHpt0lRZukZPZQJT1Dth5qzV7XcgGqYzi39KGAVYR8QEDVoO0ubFKOxzMG+g==
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.npmmirror.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
@@ -2274,7 +2279,7 @@ chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.2:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chokidar@^3.5.3:
+"chokidar@>=3.0.0 <4.0.0", chokidar@^3.5.3:
   version "3.5.3"
   resolved "https://registry.npmmirror.com/chokidar/-/chokidar-3.5.3.tgz#1cf37c8707b932bd1af1ae22c0432e2acd1903bd"
   integrity sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==
@@ -3675,6 +3680,11 @@ ignore@^5.2.0:
   version "5.2.4"
   resolved "https://registry.npmmirror.com/ignore/-/ignore-5.2.4.tgz#a291c0c6178ff1b960befe47fcdec301674a6324"
   integrity sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==
+
+immutable@^4.0.0:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.2.tgz#f89d910f8dfb6e15c03b2cae2faaf8c1f66455fe"
+  integrity sha512-oGXzbEDem9OOpDWZu88jGiYCvIsLHMvGw+8OXlpsvTFvIQplQbjg1B1cvKg8f7Hoch6+NGjpPsH1Fr+Mc2D1aA==
 
 import-fresh@^3.0.0, import-fresh@^3.2.1:
   version "3.3.0"
@@ -5196,6 +5206,22 @@ safe-buffer@5.2.1, safe-buffer@>=5.1.0, safe-buffer@^5.1.0, safe-buffer@~5.2.0:
   resolved "https://registry.npmmirror.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
+sass-loader@^13.3.2:
+  version "13.3.2"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-13.3.2.tgz#460022de27aec772480f03de17f5ba88fa7e18c6"
+  integrity sha512-CQbKl57kdEv+KDLquhC+gE3pXt74LEAzm+tzywcA0/aHZuub8wTErbjAoNI57rPUWRYRNC5WUnNl8eGJNbDdwg==
+  dependencies:
+    neo-async "^2.6.2"
+
+sass@^1.66.1:
+  version "1.66.1"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.66.1.tgz#04b51c4671e4650aa393740e66a4e58b44d055b1"
+  integrity sha512-50c+zTsZOJVgFfTgwwEzkjA3/QACgdNsKueWPyAR0mRINIvLAStVQBbPg14iuqEQ74NPDbXzJARJ/O4SI1zftA==
+  dependencies:
+    chokidar ">=3.0.0 <4.0.0"
+    immutable "^4.0.0"
+    source-map-js ">=0.6.2 <2.0.0"
+
 schema-utils@^2.6.5:
   version "2.7.1"
   resolved "https://registry.npmmirror.com/schema-utils/-/schema-utils-2.7.1.tgz#1ca4f32d1b24c590c203b8e7a50bf0ea4cd394d7"
@@ -5394,7 +5420,7 @@ sockjs@^0.3.24:
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
 
-source-map-js@^1.0.2:
+"source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmmirror.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
@@ -5887,6 +5913,13 @@ vue@^3.2.13:
     "@vue/runtime-dom" "3.3.4"
     "@vue/server-renderer" "3.3.4"
     "@vue/shared" "3.3.4"
+
+vuex@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-4.0.2.tgz#f896dbd5bf2a0e963f00c67e9b610de749ccacc9"
+  integrity sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.11"
 
 watchpack@^2.4.0:
   version "2.4.0"
