@@ -1,5 +1,5 @@
 <template>
-  <div ckass="entry-list-container">
+  <div class="entry-list-container">
     <div class="px-2 pt-2">
       <input
         type="text"
@@ -50,12 +50,12 @@ export default {
 
 <style lang="scss" scoped>
 .entry-list-container {
-  background-color: #2c2c2c;
+  border-right: 1px solid #2c3e50;
   height: calc(100vh - 56px);
 }
 
 .entry-scrollarea {
-  height: calc(100vh - 104px);
+  height: calc(100vh - 110px);
   overflow-y: auto;
 }
 </style>

@@ -5,4 +5,6 @@ const journalApi = axios.create({
     "https://vue-demos-2c80f-default-rtdb.europe-west1.firebasedatabase.app",
 });
 
+// console.log(process.env.NODE_ENV); // TEST durante testing
+
 export default journalApi;

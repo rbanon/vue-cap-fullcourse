@@ -4,49 +4,55 @@
       <div>
         <span class="text-success fs-3 fw-bold">{{ day }}</span>
         <span class="mx-1 fs-3">{{ month }}</span>
-        <span class="mx-2 fs-5">{{ yearDay }}</span>
+        <span class="mx-2 fs-4 fw-light">{{ yearDay }}</span>
       </div>
+
       <div>
         <input
           type="file"
           @change="onSelectedImage"
           ref="imageSelector"
           v-show="false"
-          accept="image/*"
+          accept="image/png, image/jpeg"
         />
+
         <button
           v-if="entry.id"
-          @click="onDeleteEntry"
           class="btn btn-danger mx-2"
+          @click="onDeleteEntry"
         >
           Borrar
-          <i class="fa fa-trash-alt" />
+          <i class="fa fa-trash-alt"></i>
         </button>
-        <button class="btn btn-primary mx-2" @click="onSelectImage">
+
+        <button class="btn btn-primary" @click="onSelectImage">
           Subir foto
-          <i class="fa fa-upload" />
+          <i class="fa fa-upload"></i>
         </button>
       </div>
     </div>
 
+    <hr />
     <div class="d-flex flex-column px-3 h-75">
       <textarea v-model="entry.text" placeholder="¿Qué sucedió hoy?"></textarea>
     </div>
-  </template>
-  <FabComponent icon="fa-save" @on:click="saveEntry" />
 
-  <img
-    v-if="entry.picture && !localImage"
-    :src="entry.picture"
-    alt="entry-picture"
-    class="img-thumbnail"
-  />
-  <img
-    v-if="localImage"
-    :src="localImage"
-    alt="entry-picture"
-    class="img-thumbnail"
-  />
+    <img
+      v-if="entry.picture && !localImage"
+      :src="entry.picture"
+      alt="entry-picture"
+      class="img-thumbnail"
+    />
+
+    <img
+      v-if="localImage"
+      :src="localImage"
+      alt="entry-picture"
+      class="img-thumbnail"
+    />
+  </template>
+
+  <FabComponent icon="fa-save" @on:click="saveEntry" />
 </template>
 
 <script>
@@ -143,7 +149,7 @@ export default {
       });
 
       if (isConfirmed) {
-        new Swal({
+        Swal.fire({
           title: "Espere por favor",
           allowOutsideClick: false,
         });
