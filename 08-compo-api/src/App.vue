@@ -1,9 +1,24 @@
 <template>
-  <nav>
+  <div id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <router-link to="/about">About</router-link> | 
+    <router-link :to="{ name: 'counter' }">Counter</router-link> |
+    <router-link :to="{ name: 'users' }">Usuarios</router-link> |
+    <router-link :to="{ name: 'pokemon-search' }">Buscar</router-link> |
+    <router-link :to="{ name: 'todo' }">Todo</router-link> |
+    <router-link :to="{ name: 'slots' }">Slots</router-link>
+  </div>
+  
+
+  <router-view v-slot="{ Component, route }">
+    <keep-alive>
+        <component :is="Component" :key="route.name" />
+    </keep-alive>
+  </router-view>
+
+  <!-- <router-view /> -->
+
+
 </template>
 
 <style>
@@ -15,16 +30,16 @@
   color: #2c3e50;
 }
 
-nav {
+#nav {
   padding: 30px;
 }
 
-nav a {
+#nav a {
   font-weight: bold;
   color: #2c3e50;
 }
 
-nav a.router-link-exact-active {
+#nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
