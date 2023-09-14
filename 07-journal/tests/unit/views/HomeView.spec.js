@@ -1,23 +1,25 @@
 import { shallowMount } from "@vue/test-utils";
-import HomeView from "@/views/HomeView.vue";
+import Home from "@/views/HomeView";
 
 describe("Pruebas en el Home View", () => {
-  it("debe de renderizar el componente correctamente", () => {
-    const wrapper = shallowMount(HomeView);
+  test("debe de renderizar el componente correctamente", () => {
+    const wrapper = shallowMount(Home);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it("Hace click en un botón redirecciona a no-entry", () => {
+  test("hacer click en un boton debe de redireccionaar a no-entry", () => {
     const mockRouter = {
       push: jest.fn(),
     };
-    const wrapper = shallowMount(HomeView, {
+
+    const wrapper = shallowMount(Home, {
       global: {
         mocks: {
           $router: mockRouter,
         },
       },
     });
+
     wrapper.find("button").trigger("click");
 
     expect(mockRouter.push).toHaveBeenCalled();

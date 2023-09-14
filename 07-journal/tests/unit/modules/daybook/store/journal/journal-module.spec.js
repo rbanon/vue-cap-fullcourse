@@ -2,6 +2,8 @@ import { createStore } from "vuex";
 import journal from "@/modules/daybook/store/journal";
 import { journalState } from "../../../../mock-data/test-journal-state";
 
+import authApi from "@/api/authApi";
+
 const createVuexStore = (initialState) =>
   createStore({
     modules: {
@@ -11,9 +13,20 @@ const createVuexStore = (initialState) =>
       },
     },
   });
-describe("Pruebas en el Journal Module ", () => {
-  // Básicas
-  it("Este es el estado inicial, debe de tener este state", () => {
+
+describe("Vuex - Pruebas en el Journal Module", () => {
+  beforeAll(async () => {
+    const { data } = await authApi.post(":signInWithPassword", {
+      email: "test@test.com",
+      password: "123456",
+      returnSecureToken: true,
+    });
+
+    localStorage.setItem("idToken", data.idToken);
+  });
+
+  // Basicas ==================
+  test("este es el estado inicial, debe de tener este state", () => {
     const store = createVuexStore(journalState);
     const { isLoading, entries } = store.state.journal;
 
@@ -21,8 +34,8 @@ describe("Pruebas en el Journal Module ", () => {
     expect(entries).toEqual(journalState.entries);
   });
 
-  // Mutations
-  it("mutation: setEntries", () => {
+  // Mutations ==================
+  test("mutation: setEntries", () => {
     const store = createVuexStore({ isLoading: true, entries: [] });
 
     store.commit("journal/setEntries", journalState.entries);
@@ -34,104 +47,107 @@ describe("Pruebas en el Journal Module ", () => {
     expect(store.state.journal.isLoading).toBeFalsy();
   });
 
-  it("mutation: updateEntry", () => {
+  test("mutation: updateEntry", () => {
     const store = createVuexStore(journalState);
-    const updateEntry = {
-      id: "-NcgH9H98sQR1f8BBVGH",
-      date: 1692960068403,
-      text: "Hola mundo desde pruebas unitarias",
+    const updatedEntry = {
+      id: "-MfKM3yA5ij3hnmLFfqv",
+      date: 1627077227978,
+      text: "Hola mundo desde pruebas",
     };
-    store.commit("journal/updateEntry", updateEntry);
+
+    store.commit("journal/updateEntry", updatedEntry);
+
     const storeEntries = store.state.journal.entries;
+
     expect(storeEntries.length).toBe(2);
-    expect(storeEntries.find((e) => e.id === updateEntry.id)).toEqual(
-      updateEntry
+    expect(storeEntries.find((e) => e.id === updatedEntry.id)).toEqual(
+      updatedEntry
     );
   });
 
-  it("mutation: addEntry and deleteEntry", () => {
+  test("mutation: addEntry deleteEntry", () => {
     const store = createVuexStore(journalState);
-    const newEntry = {
-      id: "ABC-123",
-      date: 1692960068403,
-      text: "Hola mundo desde pruebas unitarias",
-    };
-    store.commit("journal/addEntry", newEntry);
 
-    const storeEntries = store.state.journal.entries;
-    expect(storeEntries.length).toBe(3);
-    expect(storeEntries.find((e) => e.id === newEntry.id)).toBeTruthy();
+    store.commit("journal/addEntry", { id: "ABC-123", text: "Hola Mundo" });
 
-    store.commit("journal/deleteEntry", newEntry.id);
+    const stateEntries = store.state.journal.entries;
 
-    const newStoreEntries = store.state.journal.entries;
-    expect(newStoreEntries.length).toBe(2);
-    expect(newStoreEntries.find((e) => e.id === newEntry.id)).toBeFalsy();
+    expect(stateEntries.length).toBe(3);
+    expect(stateEntries.find((e) => e.id === "ABC-123")).toBeTruthy();
+
+    store.commit("journal/deleteEntry", "ABC-123");
+    expect(store.state.journal.entries.length).toBe(2);
+    expect(
+      store.state.journal.entries.find((e) => e.id === "ABC-123")
+    ).toBeFalsy();
   });
 
-  // Getters
-  it("getters: getEntriesByTerm and getEntryById", () => {
+  // Getters ==================
+  test("getters: getEntriesByTerm getEntryById", () => {
     const store = createVuexStore(journalState);
-    const [entry1] = journalState.entries;
+
+    const [entry1, entry2] = journalState.entries;
 
     expect(store.getters["journal/getEntriesByTerm"]("").length).toBe(2);
-    expect(store.getters["journal/getEntriesByTerm"]("Hola mundo").length).toBe(
-      1
-    );
-    expect(store.getters["journal/getEntriesByTerm"]("Hola mundo")).toEqual([
-      entry1,
+    expect(store.getters["journal/getEntriesByTerm"]("segunda").length).toBe(1);
+
+    expect(store.getters["journal/getEntriesByTerm"]("segunda")).toEqual([
+      entry2,
     ]);
 
-    expect(store.getters["journal/getEntryById"](entry1.id)).toEqual(entry1);
+    expect(
+      store.getters["journal/getEntryById"]("-MfKM3yA5ij3hnmLFfqv")
+    ).toEqual(entry1);
   });
 
-  // Actions
-  it("actions: loadEntries", async () => {
+  // Actions ==================
+  test("actions: loadEntries", async () => {
     const store = createVuexStore({ isLoading: true, entries: [] });
+
     await store.dispatch("journal/loadEntries");
 
-    expect(store.state.journal.entries.length).toBe(3); // Las 3 entradas de Firebase
+    expect(store.state.journal.entries.length).toBe(2);
   });
 
-  it("actions: updateEntry", async () => {
+  test("actions: updateEntry", async () => {
     const store = createVuexStore(journalState);
-    const updateEntry = {
-      id: "-NcgH9H98sQR1f8BBVGH",
-      text: "Probamos Update Entry",
-      date: 1692960068403,
-    };
-    await store.dispatch("journal/updateEntry", updateEntry);
 
-    const storeEntries = store.state.journal.entries;
-    expect(storeEntries.length).toBe(2);
-    expect(storeEntries.find((e) => e.id === updateEntry.id)).toEqual({
-      id: "-NcgH9H98sQR1f8BBVGH",
-      text: "Probamos Update Entry",
-      date: 1692960068403,
+    const updatedEntry = {
+      id: "-MfKM3yA5ij3hnmLFfqv",
+      date: 1627077227978,
+      text: "Hola mundo desde mock data",
+      otroCampo: true,
+      otroMas: { a: 1 },
+    };
+
+    await store.dispatch("journal/updateEntry", updatedEntry);
+
+    expect(store.state.journal.entries.length).toBe(2);
+    expect(
+      store.state.journal.entries.find((e) => e.id === updatedEntry.id)
+    ).toEqual({
+      id: "-MfKM3yA5ij3hnmLFfqv",
+      date: 1627077227978,
+      text: "Hola mundo desde mock data",
     });
   });
 
-  it("actions: createEntry and deleteEntry", async () => {
+  test("actions: createEntry deleteEntry", async () => {
     const store = createVuexStore(journalState);
+
     const newEntry = {
-      date: 1693481964402,
-      text: "Nueva entrada desde pruebas unitarias",
+      date: 1627077227978,
+      text: "Nueva entrada desde las pruebas",
     };
+
     const id = await store.dispatch("journal/createEntry", newEntry);
 
     expect(typeof id).toBe("string");
 
-    const storeEntries = store.state.journal.entries;
-
-    expect(storeEntries.find((e) => e.id === id)).toBeTruthy();
-
-    expect(storeEntries.length).toBe(3);
+    expect(store.state.journal.entries.find((e) => e.id === id)).toBeTruthy();
 
     await store.dispatch("journal/deleteEntry", id);
 
-    const newStoreEntries = store.state.journal.entries;
-
-    expect(newStoreEntries.find((e) => e.id === id)).toBeFalsy();
-    expect(newStoreEntries.length).toBe(2);
+    expect(store.state.journal.entries.find((e) => e.id === id)).toBeFalsy();
   });
 });

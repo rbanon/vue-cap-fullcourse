@@ -1,5 +1,6 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
+
 const useAuth = () => {
   const store = useStore();
 
@@ -13,20 +14,20 @@ const useAuth = () => {
     return resp;
   };
 
-  const checkAuthentication = async () => {
+  const checkAuthStatus = async () => {
     const resp = await store.dispatch("auth/checkAuthentication");
     return resp;
   };
 
   const logout = () => {
-    store.commit("auth/logoutUser");
+    store.commit("auth/logout");
     store.commit("journal/clearEntries");
   };
 
   return {
+    checkAuthStatus,
     createUser,
     loginUser,
-    checkAuthentication,
     logout,
 
     authStatus: computed(() => store.getters["auth/currentState"]),

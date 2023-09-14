@@ -1,17 +1,17 @@
+
 export const journalState = {
-  isLoading: false,
-  entries: [
-    {
-      id: "-NcgH9H98sQR1f8BBVGH",
-      date: 1692960068403,
-      text: "Probando",
-    },
-    {
-      id: "-NdFBEeYfBAzCYnecDuK",
-      date: 1693562480481,
-      picture:
-        "https://res.cloudinary.com/dvhy9z3n4/image/upload/v1693562500/zrf8iz0n0pce8blanj7i.png",
-      text: "Prueba septiembre con imagen",
-    },
-  ],
-};
+    isLoading: false,
+    entries: [
+        {
+            id: '-MfKM3yA5ij3hnmLFfqv',
+            date : 1627077227978,
+            text : "Hola mundo desde mock data"
+        },
+        {
+            id: '-MfKM6PrX3s9QqURdLx5',
+            date : 1627077239523,
+            picture : "https://res.cloudinary.com/dx0pryfzn/image/upload/v1627077252/ip3vwn8sjvnncphqka4y.jpg",
+            text : "Esta es la segunda entrada"
+        }
+    ]
+}

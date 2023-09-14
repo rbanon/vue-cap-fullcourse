@@ -1,8 +1,11 @@
+import { shallowMount } from "@vue/test-utils";
 import { createStore } from "vuex";
-import { VueWrapper, shallowMount } from "@vue/test-utils";
-import journal from "@/modules/daybook/store/journal";
+
 import Swal from "sweetalert2";
+
+import journal from "@/modules/daybook/store/journal";
 import { journalState } from "../../../mock-data/test-journal-state";
+
 import EntryView from "@/modules/daybook/views/EntryView.vue";
 
 const createVuexStore = (initialState) =>
@@ -21,20 +24,21 @@ jest.mock("sweetalert2", () => ({
   close: jest.fn(),
 }));
 
-describe("Pruebas en el Entry View", () => {
+describe("Pruebas en el EntryView", () => {
   const store = createVuexStore(journalState);
   store.dispatch = jest.fn();
+
   const mockRouter = {
     push: jest.fn(),
   };
 
-  let wrapper = VueWrapper;
+  let wrapper;
 
   beforeEach(() => {
     jest.clearAllMocks();
     wrapper = shallowMount(EntryView, {
       props: {
-        id: "-NcgH9H98sQR1f8BBVGH",
+        id: "-MfKM6PrX3s9QqURdLx5",
       },
       global: {
         mocks: {
@@ -45,7 +49,7 @@ describe("Pruebas en el Entry View", () => {
     });
   });
 
-  it("Debe de sacar al usuario porque el id no existe", () => {
+  test("debe de sacar al usuario porque el id no existe", () => {
     const wrapper = shallowMount(EntryView, {
       props: {
         id: "Este ID no existe en el STORE",
@@ -61,12 +65,12 @@ describe("Pruebas en el Entry View", () => {
     expect(mockRouter.push).toHaveBeenCalledWith({ name: "no-entry" });
   });
 
-  it("debe de mostrar la entrada correctamente", () => {
+  test("debe de mostrar la entrada correctamente", () => {
     expect(wrapper.html()).toMatchSnapshot();
     expect(mockRouter.push).not.toHaveBeenCalled();
   });
 
-  it("debe de borrar la entrada y salir", (done) => {
+  test("debe de borrar la entrada y salir", (done) => {
     Swal.fire.mockReturnValueOnce(Promise.resolve({ isConfirmed: true }));
 
     wrapper.find(".btn-danger").trigger("click");
@@ -81,7 +85,7 @@ describe("Pruebas en el Entry View", () => {
     setTimeout(() => {
       expect(store.dispatch).toHaveBeenCalledWith(
         "journal/deleteEntry",
-        "-NcgH9H98sQR1f8BBVGH"
+        "-MfKM6PrX3s9QqURdLx5"
       );
       expect(mockRouter.push).toHaveBeenCalled();
       done();

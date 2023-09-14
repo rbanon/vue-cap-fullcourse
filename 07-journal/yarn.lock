@@ -7747,6 +7747,11 @@ vue-loader@^17.0.0:
     hash-sum "^2.0.0"
     watchpack "^2.4.0"
 
+vue-router-mock@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-router-mock/-/vue-router-mock-1.0.0.tgz#d61a3efe9b457384cd7eee7a4fb1e52d85c1e1fd"
+  integrity sha512-j65lh+jhEuEM7sWAz/eenNsEV0VrRXFreNxtIGgLApZkM2h7orImvHSLJ3LhbUa2sJnTtjuy8otSrvoTsdGVYw==
+
 vue-router@^4.0.3:
   version "4.2.4"
   resolved "https://registry.npmmirror.com/vue-router/-/vue-router-4.2.4.tgz#382467a7e2923e6a85f015d081e1508052c191b9"

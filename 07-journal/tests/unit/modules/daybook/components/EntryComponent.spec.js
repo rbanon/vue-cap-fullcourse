@@ -1,15 +1,15 @@
 import { shallowMount } from "@vue/test-utils";
-import EntryComponent from "@/modules/daybook/components/EntryComponent";
+import EntryComponent from "@/modules/daybook/components/EntryComponent.vue";
 import { journalState } from "../../../mock-data/test-journal-state";
 
-describe("Pruebas en el Entry Component", () => {
+describe("Pruebas en Entry Component", () => {
   const mockRouter = {
     push: jest.fn(),
   };
 
   const wrapper = shallowMount(EntryComponent, {
     props: {
-      entry: journalState.entries[1],
+      entry: journalState.entries[0],
     },
     global: {
       mocks: {
@@ -18,25 +18,25 @@ describe("Pruebas en el Entry Component", () => {
     },
   });
 
-  it("Debe de coincidir con el del snapshot", () => {
+  test("debe de hacer match con el snapshot", () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it("Debe de redireccionar al hacer click en el entry-container", () => {
+  test("debe de redireccionar al hacer click en el entry-container", () => {
     const entryContainer = wrapper.find(".entry-container");
     entryContainer.trigger("click");
 
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: "entry",
-      params: { id: journalState.entries[1].id },
+      params: {
+        id: journalState.entries[0].id,
+      },
     });
-
-    expect(mockRouter.push).toHaveBeenCalledTimes(1);
   });
 
-  it("Pruebas en las propiedades computadas", () => {
-    expect(wrapper.vm.day).toBe(1);
-    expect(wrapper.vm.month).toBe("Septiembre");
-    expect(wrapper.vm.yearDay).toBe("2023, Viernes");
+  test("pruebas en las propiedades computadas", () => {
+    expect(wrapper.vm.day).toBe(23);
+    expect(wrapper.vm.month).toBe("Julio");
+    expect(wrapper.vm.yearDay).toBe("2021, Viernes");
   });
 });

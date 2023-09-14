@@ -1,9 +1,9 @@
 import { shallowMount } from "@vue/test-utils";
-import AboutView from "@/views/AboutView.vue";
+import About from "@/views/AboutView";
 
 describe("Pruebas en el About View", () => {
-  test("debe de morenderizar el componente correctamente", () => {
-    const wrapper = shallowMount(AboutView);
+  test("debe de renderizar el componente correctamente", () => {
+    const wrapper = shallowMount(About);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });
